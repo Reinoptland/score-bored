@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Player from "./Player";
+import Player from "./Components/Player";
+import AddPlayer from "./Components/AddPlayer";
 
 export default class Scoreboard extends Component {
   state = {
@@ -11,6 +12,7 @@ export default class Scoreboard extends Component {
   }
   
   incrementScore = (name) => {
+    console.log(this)
     console.log('INSIDE SCOREBOARD', name)
     // calculate score
     const newPlayers = this.state.players.map(player => {
@@ -26,7 +28,17 @@ export default class Scoreboard extends Component {
     })
 
     this.setState({ players: newPlayers })
+  }
 
+  addPlayer = (name) => {
+    const player = {
+      id: Math.round(Math.random()*100000),
+      name,
+      score: 0
+    }
+    this.setState({
+      players: this.state.players.concat(player)
+    })
   }
 
   render() {
@@ -47,6 +59,7 @@ export default class Scoreboard extends Component {
                 })
             }
         </ul>
+        <AddPlayer addPlayer={this.addPlayer}/>
       </div>
     )
   }
